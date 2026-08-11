@@ -76,14 +76,23 @@ service cloud.firestore {
           (!('createdByUid' in request.resource.data) || request.resource.data.createdByUid == resource.data.createdByUid)
         )
       );
-      // Only admins can delete cases
-      allow delete: if isSuperAdmin();
+      // Users can delete cases in their own office or cases they created; admins can delete all
+      allow delete: if isAuthenticated() && userExists() && (
+        isSuperAdmin() || 
+        resource.data.officeId == getUserData().officeId ||
+        resource.data.createdByUid == request.auth.uid
+      );
     }
 
-    // Trash Collection - admin only
+    // Trash Collection - admin can read/write all; users can write trash entries for their deleted cases
     match /trash/{caseId} {
       allow read: if isSuperAdmin();
-      allow write: if isSuperAdmin();
+      allow create: if isAuthenticated() && userExists() && (
+        isSuperAdmin() ||
+        request.resource.data.officeId == getUserData().officeId ||
+        request.resource.data.createdByUid == request.auth.uid
+      );
+      allow update, delete: if isSuperAdmin();
     }
 
     // Audit Logs - admin only

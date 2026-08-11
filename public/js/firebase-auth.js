@@ -1038,7 +1038,7 @@ window.loadCaseById = async function(caseId) {
 };
 
 window.deleteSpecificCase = async function(id) {
-  if (!confirm('⚠️ WARNING: You are about to delete Case #' + id + '.\n\nThis case will be moved to Admin Trash.')) return;
+  if (!confirm('⚠️ WARNING: You are about to delete Case #' + id + '.\n\nThis case will be deleted from your office records.')) return;
   
   let statusEl = document.getElementById('dashLoadStatus');
   if (statusEl) statusEl.textContent = 'Deleting...';
@@ -1046,19 +1046,27 @@ window.deleteSpecificCase = async function(id) {
   try {
       const docSnap = await getDoc(doc(db, "cases", id));
       if (docSnap.exists()) {
-        await setDoc(doc(db, "trash", id), {
-          ...docSnap.data(),
-          deletedAt: serverTimestamp(),
-          deletedByUid: window.currentUser?.uid || ''
-        });
+        try {
+          await setDoc(doc(db, "trash", id), {
+            ...docSnap.data(),
+            deletedAt: serverTimestamp(),
+            deletedByUid: window.currentUser?.uid || ''
+          });
+        } catch (trashErr) {
+          console.warn("Could not copy case to trash archive:", trashErr);
+        }
       }
 
       await deleteDoc(doc(db, "cases", id));
-      if (statusEl) statusEl.textContent = 'Moved to Trash ✓';
+      if (statusEl) statusEl.textContent = 'Case Deleted ✓';
       window.refreshCaseList();
-      if (typeof window.adminLoadTrash === 'function') window.adminLoadTrash();
+      const role = String(window.currentUserProfile?.role || '').toLowerCase();
+      if ((role === 'admin' || role === 'super_admin') && typeof window.adminLoadTrash === 'function') {
+        window.adminLoadTrash();
+      }
   } catch (error) {
       if (statusEl) statusEl.textContent = 'Error: ' + error.message;
+      console.error("Delete Case Error:", error);
   }
 };
 
