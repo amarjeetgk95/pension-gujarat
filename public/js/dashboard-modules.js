@@ -380,7 +380,7 @@ function _renderDirectoryRows(cases) {
     td6.style.cssText = 'text-align:right; white-space:nowrap;';
     var btn = document.createElement('button');
     btn.className = 'btn btn-outline';
-    btn.style.cssText = 'padding:4px 10px; font-size:12px; font-weight:600;';
+    btn.style.cssText = 'display:inline-flex; align-items:center; justify-content:center; gap:5px; padding:6px 12px; font-size:13px; font-weight:600; line-height:1; vertical-align:middle;';
     btn.textContent = '\u270F\uFE0F View';
     btn.setAttribute('data-case-id', c.caseId);
     btn.addEventListener('click', function() {

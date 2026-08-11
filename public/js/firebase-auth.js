@@ -654,29 +654,22 @@ window.renderCaseList = function(casesToRender) {
 
     const btnView = document.createElement('button');
     btnView.className = 'btn btn-outline';
-    btnView.style.cssText = 'padding:4px 8px; margin-right:4px; font-size:12px;';
-    btnView.innerHTML = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px; margin-right:4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>View';
+    btnView.style.cssText = 'display:inline-flex; align-items:center; justify-content:center; gap:5px; padding:6px 12px; margin-right:6px; font-size:13px; font-weight:600; line-height:1; vertical-align:middle;';
+    btnView.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg><span>View</span>';
     btnView.addEventListener('click', () => { window.loadCaseById(c.caseId).then(() => window.switchView('print-centre')); });
     tdActions.appendChild(btnView);
 
     const btnPrint = document.createElement('button');
     btnPrint.className = 'btn btn-outline';
-    btnPrint.style.cssText = 'padding:4px 8px; margin-right:4px; font-size:12px;';
-    btnPrint.innerHTML = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px; margin-right:4px;"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>Print';
+    btnPrint.style.cssText = 'display:inline-flex; align-items:center; justify-content:center; gap:5px; padding:6px 12px; margin-right:6px; font-size:13px; font-weight:600; line-height:1; vertical-align:middle;';
+    btnPrint.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg><span>Print</span>';
     btnPrint.addEventListener('click', () => { window.loadCaseById(c.caseId).then(() => window.popupNativePrintAll()); });
     tdActions.appendChild(btnPrint);
 
-    const btnCopy = document.createElement('button');
-    btnCopy.className = 'btn btn-outline';
-    btnCopy.style.cssText = 'padding:4px 8px; margin-right:4px; font-size:12px;';
-    btnCopy.innerHTML = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px; margin-right:4px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy';
-    btnCopy.addEventListener('click', () => { window.duplicateSpecificCase(c.caseId); });
-    tdActions.appendChild(btnCopy);
-
     const btnDelete = document.createElement('button');
     btnDelete.className = 'btn btn-outline-danger';
-    btnDelete.style.cssText = 'padding:4px 8px; font-size:12px; color:#ef4444; border-color:#ef4444;';
-    btnDelete.innerHTML = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px; margin-right:4px;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>Delete';
+    btnDelete.style.cssText = 'display:inline-flex; align-items:center; justify-content:center; gap:5px; padding:6px 12px; font-size:13px; font-weight:600; line-height:1; vertical-align:middle; color:#ef4444; border-color:#ef4444;';
+    btnDelete.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg><span>Delete</span>';
     btnDelete.addEventListener('click', () => { window.deleteSpecificCase(c.caseId); });
     tdActions.appendChild(btnDelete);
 
@@ -1070,38 +1063,6 @@ window.deleteSpecificCase = async function(id) {
   }
 };
 
-window.duplicateSpecificCase = async function(id) {
-  if (!confirm('Duplicate case #' + id + '? This will copy basic details into a new draft.')) return;
-  
-  let statusEl = document.getElementById('dashLoadStatus');
-  if (statusEl) statusEl.textContent = 'Duplicating...';
-  
-  try {
-      const docSnap = await getDoc(doc(db, "cases", id));
-      if (!docSnap.exists()) throw new Error("Source case not found.");
-      
-      let newCaseData = docSnap.data();
-      newCaseData.fullName = (newCaseData.fullName || '') + " (Copy)";
-      newCaseData.surnameGuj = (newCaseData.surnameGuj || '') + " (Copy)";
-      newCaseData.status = "Draft";
-      delete newCaseData.createdAt;
-      delete newCaseData.updatedAt;
-
-      const newCaseId = await generateCustomId(newCaseData);
-      await setDoc(doc(db, "cases", newCaseId), {
-          ...newCaseData,
-          createdAt: serverTimestamp(),
-          updatedAt: serverTimestamp()
-      });
-
-      if (statusEl) statusEl.textContent = 'Duplicated ✓';
-      window.refreshCaseList();
-      window.loadCaseById(newCaseId);
-      if (typeof window.switchView === 'function') window.switchView('entry');
-  } catch (error) {
-      if (statusEl) statusEl.textContent = 'Error: ' + error.message;
-  }
-};
 
 // ------------------------------------------------------------
 // 6. FORM POPULATION HELPER
@@ -1813,13 +1774,13 @@ window.adminLoadAllCasesTable = async function(filterQuery) {
       td6.style.whiteSpace = 'nowrap';
       const btn = document.createElement('button');
       btn.className = 'btn btn-outline';
-      btn.style.cssText = 'padding:5px 12px; font-size:12px; font-weight:600; border-color:#007AFF; color:#0062E3;';
-      btn.innerHTML = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px; margin-right:4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>View';
+      btn.style.cssText = 'display:inline-flex; align-items:center; justify-content:center; gap:5px; padding:6px 12px; font-size:13px; font-weight:600; line-height:1; vertical-align:middle; border-color:#007AFF; color:#0062E3;';
+      btn.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg><span>View</span>';
       btn.addEventListener('click', () => { window.loadCaseById(caseId).then(() => window.switchView('print-centre')); });
       td6.appendChild(btn);
       const tBtn = document.createElement('button');
       tBtn.className = 'btn btn-outline';
-      tBtn.style.cssText = 'padding:5px 12px; font-size:12px; font-weight:600; border-color:#7C3AED; color:#6D28D9; margin-left:6px;';
+      tBtn.style.cssText = 'padding:6px 12px; font-size:13px; font-weight:600; border-color:#7C3AED; color:#6D28D9; margin-left:6px;';
       tBtn.textContent = 'Transfer';
       tBtn.addEventListener('click', () => { window.adminTransferCase(caseId); });
       td6.appendChild(tBtn);
